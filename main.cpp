@@ -7,7 +7,7 @@ int main(int argc, char const *argv[])
     Solucao s;
     string instancia = "i25.txt";
     double tempo_melhor, tempo_total;
-    int pop = 5, cro = 4;
+    int pop = 10, cro = 4;
     double mut = 7, eli = 15;
     double tempo_max = 60;
 
@@ -54,7 +54,7 @@ void algoritmoGenetico(int pop, int cro, double mut, double eli, double tempo_ma
 
     tempo_melhor = (double)hF / CLOCKS_PER_SEC;
     memcpy(&s, &populacao[0], sizeof(populacao[0]));
-    printf("\nFO: %d\tTempo: %.2fs\n", s.FO, tempo_melhor);
+    //printf("\nFO: %d\tTempo: %.2fs\n", s.FO, tempo_melhor);
 
     tempo_total = tempo_melhor;
 
@@ -77,16 +77,16 @@ void algoritmoGenetico(int pop, int cro, double mut, double eli, double tempo_ma
             {
                 memcpy(&s, &populacao[filho], sizeof(populacao[filho]));
                 hF = clock() - hI;
-                tempo_melhor = ((double)(hF - hI)) / CLOCKS_PER_SEC;
-                printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
+                tempo_melhor = (double)hF / CLOCKS_PER_SEC;
+                //printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
             }
 
             if (populacao[filho + 1].FO > s.FO)
             {
                 memcpy(&s, &populacao[filho + 1], sizeof(populacao[filho + 1]));
                 hF = clock() - hI;
-                tempo_melhor = ((double)(hF - hI)) / CLOCKS_PER_SEC;
-                printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
+                tempo_melhor = (double)hF / CLOCKS_PER_SEC;
+                //printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
             }
 
             if (rand() % 100 < mut)
@@ -96,8 +96,8 @@ void algoritmoGenetico(int pop, int cro, double mut, double eli, double tempo_ma
                 {
                     memcpy(&s, &populacao[filho + 1], sizeof(populacao[filho + 1]));
                     hF = clock() - hI;
-                    tempo_melhor = ((double)(hF - hI)) / CLOCKS_PER_SEC;
-                    printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
+                    tempo_melhor = (double)hF / CLOCKS_PER_SEC;
+                    //printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
                 }
             }
             if (rand() % 100 < mut)
@@ -107,8 +107,8 @@ void algoritmoGenetico(int pop, int cro, double mut, double eli, double tempo_ma
                 {
                     memcpy(&s, &populacao[filho + 1], sizeof(populacao[filho + 1]));
                     hF = clock() - hI;
-                    tempo_melhor = ((double)(hF - hI)) / CLOCKS_PER_SEC;
-                    printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
+                    tempo_melhor = (double)hF / CLOCKS_PER_SEC;
+                    //printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
                 }
             }
             filho += 2;
@@ -117,7 +117,7 @@ void algoritmoGenetico(int pop, int cro, double mut, double eli, double tempo_ma
         hF = clock() - hI;
         tempo_total = (double)hF / CLOCKS_PER_SEC;
     }
-     printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
+    printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
 }
 
 void crossover(int p1, int p2, int f1, int f2)
