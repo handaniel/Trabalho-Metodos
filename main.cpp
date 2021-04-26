@@ -7,7 +7,7 @@ int main(int argc, char const *argv[])
     Solucao s;
     string instancia = "i25.txt";
     double tempo_melhor, tempo_total;
-    int pop = 2, cro = 4;
+    int pop = 5, cro = 4;
     double mut = 7, eli = 15;
     double tempo_max = 60;
 
@@ -16,7 +16,7 @@ int main(int argc, char const *argv[])
     switch (seed)
     {
     case 1:
-        srand(000000000);
+        srand(29834765);
         break;
     case 2:
         srand(1678364);
@@ -50,11 +50,11 @@ void algoritmoGenetico(int pop, int cro, double mut, double eli, double tempo_ma
         calcFO(populacao[i]);
     }
     ordena_populacao(pop);
-    hF = clock();
+    hF = clock() - hI;
 
-    tempo_melhor = ((double)(hI - hF)) / CLOCKS_PER_SEC;
+    tempo_melhor = (double)hF / CLOCKS_PER_SEC;
     memcpy(&s, &populacao[0], sizeof(populacao[0]));
-    printf("FO: %d\tTempo: %.2fs\n", s.FO, tempo_melhor);
+    printf("\nFO: %d\tTempo: %.2fs\n", s.FO, tempo_melhor);
 
     tempo_total = tempo_melhor;
 
@@ -76,17 +76,17 @@ void algoritmoGenetico(int pop, int cro, double mut, double eli, double tempo_ma
             if (populacao[filho].FO > s.FO)
             {
                 memcpy(&s, &populacao[filho], sizeof(populacao[filho]));
-                hF = clock();
+                hF = clock() - hI;
                 tempo_melhor = ((double)(hF - hI)) / CLOCKS_PER_SEC;
-                printf("FO: %d\tTempo: %.2f", s.FO, tempo_melhor);
+                printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
             }
 
             if (populacao[filho + 1].FO > s.FO)
             {
                 memcpy(&s, &populacao[filho + 1], sizeof(populacao[filho + 1]));
-                hF = clock();
+                hF = clock() - hI;
                 tempo_melhor = ((double)(hF - hI)) / CLOCKS_PER_SEC;
-                printf("FO: %d\tTempo: %.2f", s.FO, tempo_melhor);
+                printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
             }
 
             if (rand() % 100 < mut)
@@ -95,17 +95,29 @@ void algoritmoGenetico(int pop, int cro, double mut, double eli, double tempo_ma
                 if (populacao[filho + 1].FO > s.FO)
                 {
                     memcpy(&s, &populacao[filho + 1], sizeof(populacao[filho + 1]));
-                    hF = clock();
+                    hF = clock() - hI;
                     tempo_melhor = ((double)(hF - hI)) / CLOCKS_PER_SEC;
-                    printf("FO: %d\tTempo: %.2f", s.FO, tempo_melhor);
+                    printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
+                }
+            }
+            if (rand() % 100 < mut)
+            {
+                mutacao(populacao[filho + 1]);
+                if (populacao[filho + 1].FO > s.FO)
+                {
+                    memcpy(&s, &populacao[filho + 1], sizeof(populacao[filho + 1]));
+                    hF = clock() - hI;
+                    tempo_melhor = ((double)(hF - hI)) / CLOCKS_PER_SEC;
+                    printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
                 }
             }
             filho += 2;
         }
         ordena_populacao(pop + 2 * cro);
-        hF = clock();
-        tempo_total = ((double)(hF - hI)) / CLOCKS_PER_SEC;
+        hF = clock() - hI;
+        tempo_total = (double)hF / CLOCKS_PER_SEC;
     }
+     printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
 }
 
 void crossover(int p1, int p2, int f1, int f2)
@@ -149,12 +161,11 @@ void ordena_populacao(int limite)
 void mutacao(Solucao &s)
 {
     int pos, pon;
-    pon = rand() % numPon;
-
+    pon = 1 + rand() % numPon;
     do
     {
-        pos = pon + rand() % numPosCan;
-    } while (pos = s.vetPosPon[pon - 1]);
+        pos = (pon * numPosCan) - rand() % numPosCan;
+    } while (pos == s.vetPosPon[pon - 1]);
 
     s.vetPosPon[pon - 1] = pos;
     calcFO(s);
