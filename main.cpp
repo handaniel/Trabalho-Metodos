@@ -11,11 +11,22 @@ int main(int argc, char const *argv[])
     double mut = 7, eli = 15;
     double tempo_max = 60;
 
-    int seed1 = 000000000, seed2 = 1678364, seed3 = 94892619;
+    int seed = 1;
 
-    srand(seed1);
-    //srand(seed2);
-    //srand(seed3);
+    switch (seed)
+    {
+    case 1:
+        srand(000000000);
+        break;
+    case 2:
+        srand(1678364);
+        break;
+    case 3:
+        srand(94892619);
+        break;
+    default:
+        break;
+    }
 
     lerDados(instancia);
 
