@@ -6,15 +6,42 @@ int main(int argc, char const *argv[])
 {
     Solucao s;
 
-    string instancia = "i25";
-    int seed = 3;
+    int inst = 1;
+    int seed = 1;
     double tempo_max = 60;
 
-    string arq = instancia + ".txt";
-    double tempo_melhor, tempo_total;
-    int pop = 5, cro = 5;
-    double mut = 7, eli = 15;
+    string instancia;
 
+    switch (inst)
+    {
+    case 1:
+        instancia = "i25";
+        break;
+    case 2:
+        instancia = "i100";
+        break;
+    case 3:
+        instancia = "i250";
+        break;
+    case 4:
+        instancia = "i500";
+        break;
+    case 5:
+        instancia = "i750";
+        break;
+    case 6:
+        instancia = "i1000";
+        break;
+    case 7:
+        instancia = "i13206";
+        break;
+    case 8:
+        instancia = "i13206p8";
+        break;
+
+    default:
+        break;
+    }
 
     switch (seed)
     {
@@ -31,13 +58,18 @@ int main(int argc, char const *argv[])
         break;
     }
 
+    string arq = instancia + ".txt";
+    double tempo_melhor, tempo_total;
+    int pop = 5, cro = 5;
+    double mut = 7, eli = 15;
+
     lerDados(arq);
 
     algoritmoGenetico(pop * numPosCan, cro * numPosCan, mut, eli, tempo_max, s, tempo_melhor, tempo_total);
 
-    //imprimeSol("sol.txt", s, true);
+    imprimeSol("sol.txt", s, true);
 
-    imprimeSolTem(s, (instancia + "s" + to_string(seed) + ".txt"), seed, tempo_melhor, tempo_total);
+    //imprimeSolTem(s, (instancia + "s" + to_string(seed) + ".txt"), seed, tempo_melhor, tempo_total);
 
     return 0;
 }
@@ -368,7 +400,7 @@ void calcCon(Solucao &s)
             }
         }
     }
-    s.con = aux / 2;
+    s.con = (aux / 2);
 }
 
 void imprimeSolTem(Solucao &s, string arq, int seed, double tempo_melhor, double tempo_total)
