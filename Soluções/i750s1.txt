@@ -1,0 +1,4 @@
+Seed: 1
+Valor FO: 403
+Tempo de Execucao: 56.60756
+Tempo Total: 60.41506

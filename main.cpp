@@ -5,13 +5,16 @@ using namespace std;
 int main(int argc, char const *argv[])
 {
     Solucao s;
-    string instancia = "i25.txt";
-    double tempo_melhor, tempo_total;
-    int pop = 10, cro = 4;
-    double mut = 7, eli = 15;
+
+    string instancia = "i25";
+    int seed = 3;
     double tempo_max = 60;
 
-    int seed = 1;
+    string arq = instancia + ".txt";
+    double tempo_melhor, tempo_total;
+    int pop = 5, cro = 5;
+    double mut = 7, eli = 15;
+
 
     switch (seed)
     {
@@ -28,11 +31,13 @@ int main(int argc, char const *argv[])
         break;
     }
 
-    lerDados(instancia);
+    lerDados(arq);
 
     algoritmoGenetico(pop * numPosCan, cro * numPosCan, mut, eli, tempo_max, s, tempo_melhor, tempo_total);
 
-    imprimeSol("sol.txt", s, true);
+    //imprimeSol("sol.txt", s, true);
+
+    imprimeSolTem(s, (instancia + "s" + to_string(seed) + ".txt"), seed, tempo_melhor, tempo_total);
 
     return 0;
 }
@@ -117,7 +122,7 @@ void algoritmoGenetico(int pop, int cro, double mut, double eli, double tempo_ma
         hF = clock() - hI;
         tempo_total = (double)hF / CLOCKS_PER_SEC;
     }
-    printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
+    //printf("\nFO: %d\tTempo Melhor: %.5f\tTempo Total: %.5f", s.FO, tempo_melhor, tempo_total);
 }
 
 void crossover(int p1, int p2, int f1, int f2)
@@ -349,16 +354,33 @@ void calcCon(Solucao &s)
     int aux = 0;
     for (int i = 0; i < numPon; i++)
     {
-        for (int j = i + 1; j < numPon; j++)
+        for (int j = 0; j < numPon; j++)
         {
-            for (int k = 0; k < qtdConPos[s.vetPosPon[j] - 1]; k++)
+            if (i != j)
             {
-                if (s.vetPosPon[i] == matPosCan[s.vetPosPon[j] - 1][k])
+                for (int k = 0; k < qtdConPos[s.vetPosPon[j] - 1]; k++)
                 {
-                    aux++;
+                    if (s.vetPosPon[i] == matPosCan[s.vetPosPon[j] - 1][k])
+                    {
+                        aux++;
+                    }
                 }
             }
         }
     }
-    s.con = aux;
+    s.con = aux / 2;
+}
+
+void imprimeSolTem(Solucao &s, string arq, int seed, double tempo_melhor, double tempo_total)
+{
+    FILE *f = fopen(arq.c_str(), "w");
+
+    if (f != NULL)
+    {
+        fprintf(f, "Seed: %d", seed);
+        fprintf(f, "\nValor FO: %d", s.FO);
+        fprintf(f, "\nTempo de Execucao: %.5f", tempo_melhor);
+        fprintf(f, "\nTempo Total: %.5f", tempo_total);
+        fclose(f);
+    }
 }

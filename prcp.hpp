@@ -38,10 +38,12 @@ void testeHeu(Solucao &s, int qtd);
 void testeCalcFO(Solucao &s, int qtd);
 
 Solucao populacao[10000];
-void algoritmoGenetico(const int pop,const int cro, const double mut, const double eli, double tempo_max,
+void algoritmoGenetico(const int pop, const int cro, const double mut, const double eli, double tempo_max,
                        Solucao &s, double &tempo_melhor, double &tempo_total);
 void crossover(int p1, int p2, int f1, int f2);
 void ordena_populacao(int limite);
 void mutacao(Solucao &s);
+
+void imprimeSolTem(Solucao &s, std::string arq, int seed, double tempo_melhor, double tempo_total);
 
 #endif // PMM_HPP_INCLUDED
