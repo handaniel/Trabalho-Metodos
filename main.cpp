@@ -106,7 +106,6 @@ void algoritmoGenetico(int pop, int cro, double mut, double eli, double tempo_ma
 
     tempo_melhor = (double)hF / CLOCKS_PER_SEC;
     memcpy(&s, &populacao[0], sizeof(populacao[0]));
-    //printf("\nFO: %d\tTempo: %.2fs\n", s.FO, tempo_melhor);
 
     tempo_total = tempo_melhor;
 
@@ -130,7 +129,6 @@ void algoritmoGenetico(int pop, int cro, double mut, double eli, double tempo_ma
                 memcpy(&s, &populacao[filho], sizeof(populacao[filho]));
                 hF = clock() - hI;
                 tempo_melhor = (double)hF / CLOCKS_PER_SEC;
-                //printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
             }
 
             if (populacao[filho + 1].FO > s.FO)
@@ -138,7 +136,6 @@ void algoritmoGenetico(int pop, int cro, double mut, double eli, double tempo_ma
                 memcpy(&s, &populacao[filho + 1], sizeof(populacao[filho + 1]));
                 hF = clock() - hI;
                 tempo_melhor = (double)hF / CLOCKS_PER_SEC;
-                //printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
             }
 
             if (rand() % 100 < mut)
@@ -149,7 +146,6 @@ void algoritmoGenetico(int pop, int cro, double mut, double eli, double tempo_ma
                     memcpy(&s, &populacao[filho + 1], sizeof(populacao[filho + 1]));
                     hF = clock() - hI;
                     tempo_melhor = (double)hF / CLOCKS_PER_SEC;
-                    //printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
                 }
             }
             if (rand() % 100 < mut)
@@ -160,7 +156,6 @@ void algoritmoGenetico(int pop, int cro, double mut, double eli, double tempo_ma
                     memcpy(&s, &populacao[filho + 1], sizeof(populacao[filho + 1]));
                     hF = clock() - hI;
                     tempo_melhor = (double)hF / CLOCKS_PER_SEC;
-                    //printf("\nFO: %d\tTempo: %.2f", s.FO, tempo_melhor);
                 }
             }
             filho += 2;
@@ -169,7 +164,6 @@ void algoritmoGenetico(int pop, int cro, double mut, double eli, double tempo_ma
         hF = clock() - hI;
         tempo_total = (double)hF / CLOCKS_PER_SEC;
     }
-    //printf("\nFO: %d\tTempo Melhor: %.5f\tTempo Total: %.5f", s.FO, tempo_melhor, tempo_total);
 }
 
 void crossover(int p1, int p2, int f1, int f2)
