@@ -8,8 +8,9 @@ int main(int argc, char const *argv[])
 
     int inst = 1;
     int seed = 1;
-    double tempo_max = 60;
+    int tempo = 1; // 1 = 1 min, 2 = 2 min, 3 = 30 min
 
+    double tempo_max;
     string instancia;
 
     switch (inst)
@@ -53,6 +54,21 @@ int main(int argc, char const *argv[])
         break;
     case 3:
         srand(94892619);
+        break;
+    default:
+        break;
+    }
+
+    switch (tempo)
+    {
+    case 1:
+        tempo_max = 60;
+        break;
+    case 2:
+        tempo_max = 120;
+        break;
+    case 3:
+        tempo_max = 1800;
         break;
     default:
         break;
