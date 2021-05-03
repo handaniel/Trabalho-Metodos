@@ -403,6 +403,7 @@ void calcCon(Solucao &s)
     s.con = (aux / 2);
 }
 
+//Função para imprimir usada no Trabalho 2, para imprimir os tempos em arquivos diferentes
 void imprimeSolTem(Solucao &s, string arq, int seed, double tempo_melhor, double tempo_total)
 {
     FILE *f = fopen(arq.c_str(), "w");
