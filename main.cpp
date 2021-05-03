@@ -67,9 +67,10 @@ int main(int argc, char const *argv[])
 
     algoritmoGenetico(pop * numPosCan, cro * numPosCan, mut, eli, tempo_max, s, tempo_melhor, tempo_total);
 
-    imprimeSol("sol.txt", s, true);
+    //imprimeSol("sol.txt", s, true);
 
-    //imprimeSolTem(s, (instancia + "s" + to_string(seed) + ".txt"), seed, tempo_melhor, tempo_total);
+    //Gera arquivo com nome "i{instância}s{seed}.txt"
+    imprimeSolTem(s, (instancia + "s" + to_string(seed) + ".txt"), seed, tempo_melhor, tempo_total);
 
     return 0;
 }
