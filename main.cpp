@@ -7,7 +7,7 @@ int main(int argc, char const *argv[])
     Solucao s;
 
     int inst = 1;
-    int seed = 1;
+    int seed = 2;
     int tempo = 1; // 1 = 1 min, 2 = 2 min, 3 = 30 min
 
     double tempo_max;
@@ -140,7 +140,7 @@ void algoritmoGenetico(int pop, int cro, double mut, double eli, double tempo_ma
 
             if (rand() % 100 < mut)
             {
-                mutacao(populacao[filho + 1]);
+                mutacao(populacao[filho]);
                 if (populacao[filho + 1].FO > s.FO)
                 {
                     memcpy(&s, &populacao[filho + 1], sizeof(populacao[filho + 1]));
